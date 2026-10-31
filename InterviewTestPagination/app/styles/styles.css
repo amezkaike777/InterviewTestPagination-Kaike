@@ -1,0 +1,64 @@
+/* Estilo simples: mantém a tabela legível sem depender de outra biblioteca. */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #222;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+thead, .todo-rows tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+/* O botão cobre o título e mantém a interação acessível pelo teclado. */
+.sort-button {
+    background: none;
+    border: 0;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Os controles ficam separados em blocos e podem quebrar a linha. */
+.pagination {
+    margin-top: 12px;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    background-color: #f1f1f1;
+}
+
+.pagination > div {
+    padding: 10px;
+    display: inline-block;
+}
+
+.pagination input {
+    width: 65px;
+}
+
+button, select, input {
+    padding: 5px;
+}
+
+button:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+/* O erro aparece perto da tabela e oferece um botão de nova tentativa. */
+.error {
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #9b1c1c;
+    background-color: #fff0f0;
+}

@@ -1,0 +1,47 @@
+<!-- Uma falha oferece nova tentativa sem precisar recarregar a página inteira. -->
+<div class="error" role="alert" ng-if="error">
+    {{error}}
+    <button type="button" ng-click="loadPage(page, pageSize)" ng-disabled="loading">Try again</button>
+</div>
+
+<table>
+    <!-- O cabeçalho escolhe a ordenação. Só o campo ativo mostra uma seta após o clique. -->
+    <thead>
+        <tr>
+            <th>
+                <button type="button" class="sort-button" ng-click="changeSort('id')" ng-disabled="loading">
+                    Id <span ng-if="hasSorted && sortBy === 'id'">{{sortDirection === 'asc' ? '▲' : '▼'}}</span>
+                </button>
+            </th>
+            <th>
+                <button type="button" class="sort-button" ng-click="changeSort('task')" ng-disabled="loading">
+                    Task <span ng-if="hasSorted && sortBy === 'task'">{{sortDirection === 'asc' ? '▲' : '▼'}}</span>
+                </button>
+            </th>
+            <th>
+                <button type="button" class="sort-button" ng-click="changeSort('createdDate')" ng-disabled="loading">
+                    Created Date <span ng-if="hasSorted && sortBy === 'createdDate'">{{sortDirection === 'asc' ? '▲' : '▼'}}</span>
+                </button>
+            </th>
+        </tr>
+    </thead>
+
+    <!-- Durante a requisição, a mensagem substitui as linhas antigas da tabela. -->
+    <tbody ng-if="loading">
+        <tr><td colspan="3" role="status">Loading...</td></tr>
+    </tbody>
+
+    <!-- O Id identifica a tarefa mesmo quando a posição dela muda na ordenação. -->
+    <tbody ng-if="!loading && !error" class="todo-rows">
+        <tr ng-repeat="todo in todos track by todo.id">
+            <td>{{todo.id}}</td>
+            <td>{{todo.task}}</td>
+            <td>{{todo.createdDate | date:'MM/dd/yyyy'}}</td>
+        </tr>
+        <tr ng-if="todos.length === 0"><td colspan="3">No tasks found.</td></tr>
+    </tbody>
+</table>
+
+<!-- A lista passa os valores e a função. O componente cuida apenas da navegação. -->
+<pagination page="page" page-size="pageSize" total-items="totalItems"
+            total-pages="totalPages" loading="loading" on-change="loadPage(page, pageSize)"></pagination>

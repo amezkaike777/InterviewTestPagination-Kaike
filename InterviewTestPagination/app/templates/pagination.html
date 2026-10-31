@@ -1,0 +1,30 @@
+<!-- O seletor usa ng-model para guardar a opção e ng-change para avisar a lista. -->
+<div class="pagination">
+    <div>
+        <label for="page-size-{{$id}}">Items per page</label>
+        <select id="page-size-{{$id}}" ng-model="selectedPageSize"
+                ng-options="option.value as option.label for option in pageSizes"
+                ng-change="changePageSize()" ng-disabled="loading"></select>
+    </div>
+
+    <!-- Cada botão pede uma página. Os botões são desabilitados nos limites e durante a busca. -->
+    <div>
+        <button type="button" ng-click="goToPage(1)"
+                ng-disabled="loading || page <= 1" aria-label="First page">&lt;&lt;</button>
+        <button type="button" ng-click="goToPage(page - 1)"
+                ng-disabled="loading || page <= 1" aria-label="Previous page">&lt;</button>
+
+        <label for="page-number-{{$id}}">Page</label>
+        <input id="page-number-{{$id}}" type="number" min="1" max="{{totalPages}}" step="1"
+               ng-model="requestedPage" ng-change="goToPage(requestedPage)" ng-disabled="loading" />
+        of <span class="total-pages">{{totalPages}}</span>
+
+        <button type="button" ng-click="goToPage(page + 1)"
+                ng-disabled="loading || page >= totalPages" aria-label="Next page">&gt;</button>
+        <button type="button" ng-click="goToPage(totalPages)"
+                ng-disabled="loading || page >= totalPages" aria-label="Last page">&gt;&gt;</button>
+    </div>
+
+    <!-- O total vem da API; não é apenas a quantidade de linhas da página atual. -->
+    <div><span class="total-items">{{totalItems}} items</span></div>
+</div>
